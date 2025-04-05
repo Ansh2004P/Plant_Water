@@ -2,6 +2,7 @@
 #include "DisplayManager.h"  
 #include "PIR_Buzzer.h"
 #include "BlynkManager.h"
+#include "PumpController.h"
 
 void setup() {
     Serial.begin(9600);  
@@ -9,6 +10,7 @@ void setup() {
     setupSensors();
     setupDisplay();
     setupPIRBuzzer();
+    setupPump();
 }
 
 void loop() {
@@ -16,6 +18,7 @@ void loop() {
     int soilMoisture = readSoilMoisture();
     readTemperatureHumidity(temperature, humidity);
     displayData(temperature, humidity, soilMoisture);
+    controlPump(soilMoisture);
 
     checkMotion();
     
